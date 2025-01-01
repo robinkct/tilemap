@@ -10,7 +10,7 @@ ADDCARD_PROMPT = '''
 
 '''
 
-from api.util import api_hit
+from api.utils import api_hit
 
 def add_card_api(msg: str):
   api_hit("AddCard", msg)
