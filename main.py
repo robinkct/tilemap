@@ -6,15 +6,15 @@ from action import Action
 
 allow_gpt = False
 
-from prompt.addCard import(
+from api.addCard import(
     ADDCARD_DESCRIPTION,
     ADDCARD_PROMPT,
 )
-from prompt.clearAllCard import(
+from api.clearAllCard import(
     CLEARALLCARD_DESCRIPTION,
     CLEARALLCARD_PROMPT,
 )
-from prompt.ai_role import(
+from api.ai_role import(
     AI_ROLE_PROMPT,
 )
 
