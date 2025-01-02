@@ -1,4 +1,5 @@
-ADDCARD_DESCRIPTION = 'ADDCARD: Add a new card to the board.'
+api_name = "ADDCARD"
+ADDCARD_DESCRIPTION = f'{api_name}: Add a new card to the board.'
 ADDCARD_PROMPT = '''
 -Goal-
 
