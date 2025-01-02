@@ -1,19 +1,11 @@
 import requests
 import json
 
-from utils import timer
+from utils import timer, load_description_from_folder
 from action import Action
 
 allow_gpt = False
 
-from api.addCard import(
-    ADDCARD_DESCRIPTION,
-    ADDCARD_PROMPT,
-)
-from api.clearAllCard import(
-    CLEARALLCARD_DESCRIPTION,
-    CLEARALLCARD_PROMPT,
-)
 from api.ai_role import(
     AI_ROLE_PROMPT,
 )
@@ -23,16 +15,16 @@ from openai import OpenAI
 OPENAI_API_KEY = open('api_key', 'r').read()
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+description_dict = load_description_from_folder('api')
+descriptions = [description_dict[name] for name in description_dict]
 
-
-description = [ADDCARD_DESCRIPTION, CLEARALLCARD_DESCRIPTION]
 dummy_gpt_reply = '''ADDCARD: 人們在「解決問題」時展現的原創性遠超過在「選擇問題」時
 ADDCARD: 選擇問題時，即便是聰明的人也可能顯得保守
 ADDCARD: 解決時髦問題通常吸引不追隨潮流的人
 ADDCARD: 選擇問題的賭注高，可能花費數年時間，而解決問題可能只需幾天'''
 
 
-guide = AI_ROLE_PROMPT.format("\n".join(description))
+guide = AI_ROLE_PROMPT.format("\n".join(descriptions))
 print("guide:", guide)
 
 
