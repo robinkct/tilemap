@@ -1,14 +1,13 @@
 import requests
 import json
+from collections import deque
 
 from utils import timer, load_description_from_folder
 from action import Action
 
 allow_gpt = False
 
-from api.ai_role import(
-    AI_ROLE_PROMPT,
-)
+from api.ai_role import AI_ROLE_PROMPT
 
 from openai import OpenAI
 
@@ -41,14 +40,17 @@ def chatgpt_do_msg(user_msg):
     chatgpt_ret = completion.choices[0].message.content
   else:
     chatgpt_ret = dummy_gpt_reply
-  print(f"gpt reply (allow_gpt={allow_gpt}): {chatgpt_ret}\n")
+  print(f"gpt reply (dummy={allow_gpt}): \n{chatgpt_ret}\n")
 
-  action = chatgpt_ret.split(":")[0]
-  content = chatgpt_ret.split(": ")[-1]
+  actions_queue = deque(chatgpt_ret.split("\n"))
+  while actions_queue:
+    reply = actions_queue.popleft()
 
-  a = Action(action, content)
-  a.doAction()
+    action = reply.split(":")[0]
+    content = reply.split(": ")[-1]
 
+    # a = Action(action, content)
+    # a.doAction()
 
 ### Example
 msg = """【流行】
