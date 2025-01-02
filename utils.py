@@ -76,12 +76,16 @@ def load_description_from_folder(folder_path: str) -> dict[str, str]:
                 # 獲取模塊中所有成員
                 members = inspect.getmembers(module)
 
+                api_name = None
+                description = None
                 for name, value in members:
+                    if name == "api_name":
+                        api_name = value
                     if name.endswith('_DESCRIPTION') and isinstance(value, str):
-                        # action_name = name.replace('_DESCRIPTION', '')
-                        description_name = name
-                        description_dict[description_name] = value
-                        
+                        description = value
+                if api_name is not None and description is not None:
+                    description_dict[api_name] = description
+                    
             except ImportError as e:
                 print(f"無法導入模塊 {module_name}: {str(e)}")
                 print(f"當前 Python 路徑: {os.sys.path}")
@@ -107,6 +111,6 @@ if __name__ == '__main__':
     #     # if 'DESCRIPTION' in description_name:
     #     print(f"{description_name}")
 
-    modules_dict = load_modules_from_folder(api_path)
-    print(f"Current modules in {api_path}:")
-    print(modules_dict)
+    # modules_dict = load_modules_from_folder(api_path)
+    # print(f"Current modules in {api_path}:")
+    # print(modules_dict)
