@@ -1,16 +1,13 @@
 import requests
 import json
 from collections import deque
+from openai import OpenAI
 
 from utils import timer, load_description_from_folder
 from action import Action
-
-allow_gpt = False
-
 from api.ai_role import AI_ROLE_PROMPT
 
-from openai import OpenAI
-
+allow_gpt = False
 OPENAI_API_KEY = open('api_key', 'r').read()
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -29,28 +26,28 @@ print("guide:", guide)
 
 @timer
 def chatgpt_do_msg(user_msg):
-  if allow_gpt:
-    completion = client.chat.completions.create(
-        model="gpt-4-turbo",
-        messages=[
-        {"role": "assistant", "content": guide},
-        {"role": "user", "content": user_msg}
-        ]
-    )
-    chatgpt_ret = completion.choices[0].message.content
-  else:
-    chatgpt_ret = dummy_gpt_reply
-  print(f"gpt reply (dummy={allow_gpt}): \n{chatgpt_ret}\n")
+    if allow_gpt:
+        completion = client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=[
+            {"role": "assistant", "content": guide},
+            {"role": "user", "content": user_msg}
+            ]
+        )
+        chatgpt_ret = completion.choices[0].message.content
+    else:
+        chatgpt_ret = dummy_gpt_reply
+    print(f"gpt reply (allow_gpt={allow_gpt}): \n{chatgpt_ret}\n")
 
-  actions_queue = deque(chatgpt_ret.split("\n"))
-  while actions_queue:
-    reply = actions_queue.popleft()
+    actions_queue = deque(chatgpt_ret.split("\n"))
+    while actions_queue:
+        reply = actions_queue.popleft()
 
-    action = reply.split(":")[0]
-    content = reply.split(": ")[-1]
+        action = reply.split(":")[0]
+        content = reply.split(": ")[-1]
 
-    # a = Action(action, content)
-    # a.doAction()
+#        a = Action(action, content)
+#        a.doAction()
 
 ### Example
 msg = """【流行】
