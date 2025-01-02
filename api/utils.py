@@ -30,5 +30,5 @@ def api_hit(action_name: str, msg: dict = None) -> str:
         print(f"Error: {action_name} - {r.status_code}: {r.text}")
         return None
     
-    print("Response:\n", ret)
+    #print("Response:\n", ret)
     return ret

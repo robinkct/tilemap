@@ -1,4 +1,4 @@
-from api import addCard, clearAllCard
+from api import addCard, clearAllCard, getAllCardInfo
 import unittest
 
 class TestAPI(unittest.TestCase):
@@ -13,6 +13,10 @@ class TestAPI(unittest.TestCase):
 
     def test_clearAllCard(self):
         result = clearAllCard.run_testcase()
+        self.assertEqual(result, True)
+
+    def test_clearAllCard(self):
+        result = getAllCardInfo.run_testcase()
         self.assertEqual(result, True)
 
 if __name__ == '__main__':
