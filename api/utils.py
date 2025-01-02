@@ -23,10 +23,12 @@ def api_hit(action_name: str, msg: dict = None) -> str:
     r.encoding = "utf_8"  # other encoding: utf_8 utf_16 gbk gb18030 big5hkscs
     ret = r.text
 
-    print("Action:", action_name)
-    print("Status:", r)
-    if ret == "":
-        return None
+#    print("Action:", action_name)
+#    print("Status:", r)
 
+    if r.status_code != 200:
+        print(f"Error: {action_name} - {r.status_code}: {r.text}")
+        return None
+    
     print("Response:\n", ret)
     return ret

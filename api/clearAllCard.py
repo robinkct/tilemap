@@ -1,5 +1,5 @@
 api_name = 'CLEARALLCARD'
-CLEARALLCARD_DESCRIPTION = f'{api_name}: Remove all card'
+description = f'{api_name}: Remove all card'
 CLEARALLCARD_PROMPT = '''
 -Goal-
 

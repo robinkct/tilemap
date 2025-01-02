@@ -121,7 +121,7 @@ def load_description_from_folder(folder_path: str=default_path) -> dict[str, str
                 for name, value in members:
                     if name == "api_name":
                         api_name = value
-                    if name.endswith('_DESCRIPTION') and isinstance(value, str):
+                    if name == "description" and isinstance(value, str):
                         description = value
                 if api_name is not None and description is not None:
                     description_dict[api_name] = description
@@ -144,9 +144,9 @@ if __name__ == '__main__':
     # #     if '_api' in func_name:
     # #         print(f"{func_name}")
     
-    # description_dict = load_description_from_folder(api_path)
-    # print(f"Current api description in {api_path}:")
-    # print(description_dict)
+    description_dict = load_description_from_folder(api_path)
+    print(f"Current api description in {api_path}:")
+    print(description_dict)
     # # for description_name in description_dict:
     # #     # if 'DESCRIPTION' in description_name:
     # #     print(f"{description_name}")
