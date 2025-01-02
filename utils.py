@@ -35,6 +35,9 @@ def timer(func):
 #     return funcs_dict
 
 def load_functions_from_folder(folder_path: str=default_path) -> dict[str, callable]:
+    """
+    收集 folder 目錄下所有模塊中的 run_api 函數
+    """
     func_dict = {}
     folder_path = os.path.dirname(os.path.abspath(__file__)) + "/api"
     
@@ -101,7 +104,7 @@ def load_modules_from_folder(folder_path: str=default_path) -> dict[str, str]:
 
 def load_description_from_folder(folder_path: str=default_path) -> dict[str, str]:
     """
-    收集 folder 目錄下所有模塊中的 XXX_DESCRIPTION 常量
+    收集 folder 目錄下所有模塊中的 description 常量
     """
     description_dict = {}
     folder_path = os.path.dirname(os.path.abspath(__file__)) + "/api"
