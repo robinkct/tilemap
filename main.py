@@ -41,7 +41,7 @@ def chatgpt_do_msg(user_msg):
     chatgpt_ret = completion.choices[0].message.content
   else:
     chatgpt_ret = dummy_gpt_reply
-  print(f"gpt reply (dummy={allow_gpt}): {chatgpt_ret}\n")
+  print(f"gpt reply (allow_gpt={allow_gpt}): {chatgpt_ret}\n")
 
   action = chatgpt_ret.split(":")[0]
   content = chatgpt_ret.split(": ")[-1]
