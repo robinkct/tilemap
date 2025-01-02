@@ -15,36 +15,6 @@ class Action:
         else:
             print(f"Unknown action: {self.action}")
 
-    # def call_clearAllCard(self):
-    #     try:
-    #         response = requests.post(
-    #             url=self.url_clearAllCard,
-    #             json={},
-    #         )
-    #         response.raise_for_status()
-    #         print("All cards cleared successfully.")
-    #     except requests.RequestException as e:
-    #         print(f"Error clearing cards: {e}")
-
-    # def call_addCard(self, text):
-    #     demo_format = {
-    #         "X": 100 + 100 * self.card_cnt,
-    #         "Y": 100 + 100 * self.card_cnt,
-    #         "TextInfo": {
-    #             "Text": text,
-    #         },
-    #     }
-    #     self.card_cnt += 1
-    #     try:
-    #         response = requests.post(
-    #             url=self.url_addCard,
-    #             json=demo_format,
-    #         )
-    #         response.raise_for_status()
-    #         print("Card added successfully.")
-    #     except requests.RequestException as e:
-    #         print(f"Error adding card: {e}")
-
 def main():
     # Example usage
     action = "ADDCARD"  # Define your action here
