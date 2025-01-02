@@ -47,7 +47,7 @@ class Action:
 
 def main():
     # Example usage
-    action = "add_card_api"  # Define your action here
+    action = "ADDCARD"  # Define your action here
     content = "Sample Card Content"  # Define your content here
 
     # Create an instance of Action and perform the action
