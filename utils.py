@@ -4,6 +4,8 @@ import os
 import importlib.util
 import inspect
 
+default_path = 'api'
+
 def timer(func):
     def wrapper(*args, **kwargs):
         start_time = time.time()
@@ -17,7 +19,7 @@ def timer(func):
             print(f'Error: {str(e)}')
     return wrapper
 
-def load_functions_from_folder(folder_path: str) -> dict[str, callable]:
+def load_functions_from_folder(folder_path: str=default_path) -> dict[str, callable]:
     funcs_dict ={}
     for filename in os.listdir(folder_path):
         if filename.endswith(".py"):
@@ -31,7 +33,7 @@ def load_functions_from_folder(folder_path: str) -> dict[str, callable]:
                 funcs_dict[attr] = getattr(module,attr)
     return funcs_dict
 
-def load_modules_from_folder(folder_path: str) -> dict[str, str]:
+def load_modules_from_folder(folder_path: str=default_path) -> dict[str, str]:
     """
     收集 folder 目錄下所有模塊中的 modules 常量
     """
@@ -59,7 +61,7 @@ def load_modules_from_folder(folder_path: str) -> dict[str, str]:
     
     return modules_dict
 
-def load_description_from_folder(folder_path: str) -> dict[str, str]:
+def load_description_from_folder(folder_path: str=default_path) -> dict[str, str]:
     """
     收集 folder 目錄下所有模塊中的 XXX_DESCRIPTION 常量
     """
