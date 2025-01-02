@@ -13,7 +13,7 @@ prompt = '''
 
 from api.utils import api_hit
 
-def add_card_api(msg: str):
+def run_api(msg: str):
     if type(msg) is str:
         msg = {
             "X": 10,
@@ -41,7 +41,7 @@ def run_testcase(input=None, expect_output=None):
     if input is None and expect_output is None: # Dummy testcase
         input, output = create_dummy()
 
-    ret = add_card_api(input)
+    ret = run_api(input)
     if ret == expect_output:
         return True
 

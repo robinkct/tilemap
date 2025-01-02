@@ -58,7 +58,7 @@ def load_functions_from_folder(folder_path: str=default_path) -> dict[str, calla
                 for name, value in members:
                     if name == "api_name":
                         api_name = value
-                    if "_api" in name and callable(value):
+                    if name == "run_api" and callable(value):
                         func = value
                 if api_name is not None and func is not None:
                     func_dict[api_name] = func
