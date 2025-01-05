@@ -49,13 +49,17 @@ def run_testcase(input=None, expect_output=None):
         return True
 
 if __name__ == "__main__":
+    print(f"== {api_name} ==")
+
     msg = {
-        "ID": '2',
+        "ID": '1',
         "X": 200,
         "Y": 200,
         "TextInfo": {
             "Text": "AddCard2",
         }
     }
-    run_testcase(input=msg)
+    print("Input:", msg)
+    print("Testcase Result:", run_testcase(input=msg))
+
 

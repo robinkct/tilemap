@@ -25,4 +25,5 @@ def run_testcase(input=None, expect_output=None):
         return True
 
 if __name__ == "__main__":
-    run_testcase()
+    print(f"== {api_name} ==")
+    print("Testcase Result:", run_testcase())

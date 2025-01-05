@@ -22,10 +22,16 @@ def run_api(id: str):
 
     ret = api_hit(action_with_id)
 
-    # todo: if id is not found
-    #if ret == "[]":
-    #    print(f"{api_name}: No card")
+    if ret is None:
+        print(f"Error: {api_name}: return None (Maybe ID is not found?)")
     return ret
+
+def id_exist(id: str):
+    card_info = run_api(id=id)
+    if card_info is None:
+        return False
+    else:
+        return True
 
 def run_testcase(input=None, expect_output=None):
     testcase_id = "1"
@@ -42,9 +48,13 @@ def run_testcase(input=None, expect_output=None):
         return None
 
 if __name__ == "__main__":
+    print(f"== {api_name} ==")
 
     testcase_id = "1"
+    print("Input (Card ID):", testcase_id)
+
+    print("Result:")
     card_info = run_api(id=testcase_id)
     print(type(card_info), card_info)
 
-    print(run_testcase()) # expect True
+    print("Testcase Result:", run_testcase(input=testcase_id))

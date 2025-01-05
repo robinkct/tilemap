@@ -18,6 +18,11 @@ except:
     from api.getCardInfoByID import run_api as getCardInfoByID
 
 def run_api(id: str, msg: str):
+    
+    card_info = getCardInfoByID(id)
+    if card_info is None:
+        return None
+
     if type(msg) is str:
         msg = {
             "ID": id,
@@ -35,14 +40,29 @@ def run_testcase(id=None, expect_output=None):
         expect_output = "UpdateCard"
 
     run_api(id=id, msg=expect_output) # update msg as UpdateCard
-    card_info = getCardInfoByID(id)
-    update_msg = card_info["TextInfo"][0]["Text"]
 
-    if update_msg == expect_output:
-        return True
+    try:
+        card_info = getCardInfoByID(id)
+        update_msg = card_info["TextInfo"][0]["Text"]
+        if update_msg == expect_output:
+            return True
+    except:
+        return None
+
 
 if __name__ == "__main__":
-    id = "1"
-    expect_output = "UpdateCard"
-    print(f"{api_name}: {run_testcase(id=id, expect_output=expect_output)}")
+    print(f"== {api_name} ==")
 
+    testcase_id = "1"
+    expect_output = "UpdateCard"
+    print(f"Input (Card ID): {testcase_id}, msg: {expect_output}")
+
+    print("Result (Before Update):")
+    card_info = getCardInfoByID(testcase_id)
+    print("Card Info:", card_info)
+
+    print(f"Testcase result: {run_testcase(id=testcase_id, expect_output=expect_output)}")
+
+    print("Result (After Update):")
+    card_info = getCardInfoByID(testcase_id)
+    print("Card Info:", card_info)
