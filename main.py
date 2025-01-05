@@ -7,9 +7,6 @@ from utils import timer, load_description_from_folder
 from action import Action
 from api.ai_role import AI_ROLE_PROMPT
 
-allow_gpt = False
-launch_api = True
-
 OPENAI_API_KEY = open('api_key', 'r').read()
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -21,13 +18,11 @@ ADDCARD: 選擇問題時，即便是聰明的人也可能顯得保守
 ADDCARD: 解決時髦問題通常吸引不追隨潮流的人
 ADDCARD: 選擇問題的賭注高，可能花費數年時間，而解決問題可能只需幾天'''
 
-
 guide = AI_ROLE_PROMPT.format("\n".join(descriptions))
 print("guide:", guide)
 
-
 @timer
-def chatgpt_do_msg(user_msg):
+def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False):
     if allow_gpt:
         completion = client.chat.completions.create(
             model="gpt-4-turbo",
@@ -53,12 +48,16 @@ def chatgpt_do_msg(user_msg):
             a = Action(action, content)
             a.doAction()
 
-### Example
-msg = """【流行】
-人們在「解決問題」時展現的原創性遠超過在「選擇問題」時。就算是最聰明的人，選擇工作內容時也可能令人驚訝的保守。一些生活中不追隨潮流的人，會忍不住去解決時髦的問題。
-人們選擇問題較保守，原因之一是選問題的賭注較大。一個問題可能花費你數年，而探索其解決方案可能只需要幾天。
-"""
-chatgpt_do_msg(msg)
+if __name__ == "__main__":
+  msg = """【流行】
+  人們在「解決問題」時展現的原創性遠超過在「選擇問題」時。就算是最聰明的人，選擇工作內容時也可能令人驚訝的保守。一些生活中不追隨潮流的人，會忍不住去解決時髦的問題。
+  人們選擇問題較保守，原因之一是選問題的賭注較大。一個問題可能花費你數年，而探索其解決方案可能只需要幾天。
+  """
+
+  allow_gpt = False
+  launch_api = False
+
+  chatgpt_do_msg(msg, allow_gpt, launch_api)
 
 
 # msg = "把卡片都刪除"
