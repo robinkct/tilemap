@@ -12,24 +12,14 @@ prompt = '''
 '''
 
 try:
-    from utils import api_hit
+    from utils import api_hit, remove_duplicate
     from addCard import run_api as addCard
 except:
-    from api.utils import api_hit
+    from api.utils import api_hit, remove_duplicate
     from api.addCard import run_api as addCard
 
 
 def run_api():
-    def remove_duplicate(card_info_list):
-        seen = set()
-        unique_list = []
-        for d in card_info_list:
-            key = d['ID']
-            if key not in seen:
-                seen.add(key)
-                unique_list.append(d)
-        return unique_list
-
     card_info_list = api_hit("GetAllCardInfo")
     card_info_list = remove_duplicate(card_info_list)
     if card_info_list == "[]":

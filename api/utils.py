@@ -50,3 +50,13 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
     except:
         print(f"Error: {__file__} - {action_name} - {ret}")
         return ret
+
+def remove_duplicate(list_obj):
+    seen = set()
+    unique_list = []
+    for obj in list_obj:
+        key = obj['ID']
+        if key not in seen:
+            seen.add(key)
+            unique_list.append(obj)
+    return unique_list
