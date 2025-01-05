@@ -27,24 +27,23 @@ def run_api(msg: str):
         }
     api_hit("AddCard", msg, no_return=True)
 
-
-def create_dummy():
-    input = {
-        "ID": '1',
-        "X": 10,
-        "Y": 10,
+def create_dummy_card(i: int):
+    dummy_msg = {
+        "ID": 'dummy{}'.format(i),
+        "X": i*250,
+        "Y": i*250,
         "TextInfo": {
-            "Text": "AddCard1",
+            "Text": "dummy{}".format(i),
         }
     }
-    expect_output = None
-    return (input, expect_output)
+    run_api(dummy_msg)
 
 def run_testcase(input=None, expect_output=None):
     if input is None and expect_output is None: # Dummy testcase
-        input, output = create_dummy()
+        ret = create_dummy_card(0)
+    else:
+        ret = run_api(input)
 
-    ret = run_api(input)
     if ret == expect_output:
         return True
 

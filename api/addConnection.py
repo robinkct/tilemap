@@ -13,11 +13,11 @@ prompt = '''
 try:
     from utils import api_hit
     from getCardInfoByID import id_exist as id_exist
-    from addCard import run_api as addCard # for testcase
+    from addCard import create_dummy_card as create_dummy_card # for testcase
 except:
     from api.utils import api_hit
     from api.getCardInfoByID import id_exist as id_exist
-    from api.addCard import run_api as addCard # for testcase
+    from api.addCard import create_dummy_card as create_dummy_card # for testcase
 
 anchor_directions = ["top", "left", "right", "bottom"]
 
@@ -42,16 +42,6 @@ def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor:
 
 
 def run_testcase(input=None, expect_output=None):
-    def create_dummy_card(i: int):
-        dummy_msg = {
-            "ID": 'dummy{}'.format(i),
-            "X": i*300,
-            "Y": i*300,
-            "TextInfo": {
-                "Text": "dummy{}".format(i),
-            }
-        }
-        addCard(dummy_msg)
 
     # 1. create dummy cards
     create_dummy_card(0)

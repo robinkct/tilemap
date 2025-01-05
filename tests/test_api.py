@@ -6,11 +6,11 @@ import unittest
 class TestAPI(unittest.TestCase):
 
     def test_addCard(self):
-        result = addCard.run_testcase(input=None, expect_output=None)
+        result = addCard.run_testcase()
         self.assertEqual(result, True)
 
         msg = "TestAPI"
-        result = addCard.run_testcase(input=msg, expect_output=None)
+        result = addCard.run_testcase(input=msg)
         self.assertEqual(result, True)
 
     # Commented out because it clears all cards
