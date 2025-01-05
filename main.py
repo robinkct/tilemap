@@ -55,7 +55,7 @@ if __name__ == "__main__":
   """
 
   allow_gpt = False
-  launch_api = False
+  launch_api = True
 
   chatgpt_do_msg(msg, allow_gpt, launch_api)
 
