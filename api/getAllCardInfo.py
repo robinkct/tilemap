@@ -20,10 +20,21 @@ except:
 
 
 def run_api():
-    ret = api_hit("GetAllCardInfo")
-    if ret == "[]":
+    def remove_duplicate(card_info_list):
+        seen = set()
+        unique_list = []
+        for d in card_info_list:
+            key = d['ID']
+            if key not in seen:
+                seen.add(key)
+                unique_list.append(d)
+        return unique_list
+
+    card_info_list = api_hit("GetAllCardInfo")
+    card_info_list = remove_duplicate(card_info_list)
+    if card_info_list == "[]":
         print(f"{api_name}: No card")
-    return ret
+    return card_info_list
 
 def run_testcase(input=None, expect_output=None):
     ret = run_api()
@@ -35,9 +46,11 @@ def run_testcase(input=None, expect_output=None):
         return None
 
 if __name__ == "__main__":
-    print(f"== {api_name}: {run_testcase()} ==")
-    card_info_list = run_api()
+    print(f"== {api_name} ==")
 
-    print(card_info_list)
+    print("Result:")
+    card_info_list = run_api()
     for card in card_info_list:
         print(card)
+
+    print("Testcase Result:", run_testcase())
