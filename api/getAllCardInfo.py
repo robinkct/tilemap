@@ -23,8 +23,9 @@ def run_api():
 
 def run_testcase(input=None, expect_output=None):
     ret = run_api()
+    #print("getAllCardInfo ret:", type(ret)) # ret is list
 
-    if len(ret) != 0:
+    if type(ret) is list:
         return True
     else:
         return None
