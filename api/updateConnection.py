@@ -20,6 +20,7 @@ except:
     from api.getAllConnectionInfo import run_api as getAllConnectionInfo
 
 def run_api(id: str, description: str):
+    # TODO: Check if the connection exists
 #    if not id_exist(id):
 #        return None
     msg = {
