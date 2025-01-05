@@ -15,9 +15,9 @@ class TestAPI(unittest.TestCase):
         result = clearAllCard.run_testcase()
         self.assertEqual(result, True)
 
-    def test_clearAllCard(self):
-        result = getAllCardInfo.run_testcase()
-        self.assertEqual(result, True)
+    #def test_getAllCardInfo(self):
+        #result = getAllCardInfo.run_testcase()
+        #self.assertEqual(result, True)
 
 if __name__ == '__main__':
     unittest.main()

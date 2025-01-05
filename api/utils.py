@@ -1,5 +1,5 @@
 import requests
-
+import json
 url = "https://tilemapwebapi.azurewebsites.net/TextCardApi/{}"
 
 def get_action(action_name: str) -> bool:
@@ -7,7 +7,17 @@ def get_action(action_name: str) -> bool:
         return True
     return False
 
-def api_hit(action_name: str, msg: dict = None) -> str:
+def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
+    '''
+    action_name: API name
+    msg: for API contains input value
+    no_return: for API contains no return value
+
+    return: 
+      None: for API contains no return value
+      json: for API contains return value
+    '''
+
     action_url = url.format(action_name)
 
     if get_action(action_name): # GET
@@ -27,8 +37,16 @@ def api_hit(action_name: str, msg: dict = None) -> str:
 #    print("Status:", r)
 
     if r.status_code != 200:
-        print(f"Error: {action_name} - {r.status_code}: {r.text}")
+        print(f"Error: Failed Status: {r.status_code} - {action_name}: {r.text}")
+        return None
+    
+    if no_return: # for API contains no return value
         return None
     
     #print("Response:\n", ret)
-    return ret
+    try:
+        ret_json = json.loads(ret)
+        return ret_json
+    except:
+        print(f"Error: {__file__} - {action_name} - {ret}")
+        return ret

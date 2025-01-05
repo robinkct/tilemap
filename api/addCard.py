@@ -22,7 +22,7 @@ def run_api(msg: str):
                 "Text": msg,
             }
         }
-    api_hit("AddCard", msg)
+    api_hit("AddCard", msg, no_return=True)
 
 
 def create_dummy():

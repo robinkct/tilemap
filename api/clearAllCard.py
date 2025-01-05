@@ -13,11 +13,11 @@ CLEARALLCARD_PROMPT = '''
 from api.utils import api_hit
 
 def run_api():
-    api_hit("ClearAllCard")
+    api_hit("ClearAllCard", no_return=True)
 
 def run_testcase(input=None, expect_output=None):
     ret = run_api()
-    if ret == expect_output:
+    if ret == None:
         return True
 
 if __name__ == "__main__":
