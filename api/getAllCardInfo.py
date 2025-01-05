@@ -11,10 +11,9 @@ prompt = '''
 
 '''
 
-from api.utils import api_hit
-#from utils import api_hit
-#from addCard import run_api as addCard
-import json
+from utils import api_hit
+from addCard import run_api as addCard
+
 def run_api():
     ret = api_hit("GetAllCardInfo")
     if ret == "[]":
@@ -31,12 +30,9 @@ def run_testcase(input=None, expect_output=None):
         return None
 
 if __name__ == "__main__":
-    #action = "GetAllCardInfo"
-    #allcardinfo = api_hit(action)
-    allcardinfo = run_api()
-    print(allcardinfo)
-    #print(allcardinfo)
-    #print(type(allcardinfo))
-    allcard = json.loads(allcardinfo)
-    for card in allcard:
+    print(f"== {api_name}: {run_testcase()} ==")
+    card_info_list = run_api()
+    
+    print(card_info_list)
+    for card in card_info_list:
         print(card)
