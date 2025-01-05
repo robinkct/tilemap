@@ -8,6 +8,8 @@ from action import Action
 from api.ai_role import AI_ROLE_PROMPT
 
 allow_gpt = False
+launch_api = True
+
 OPENAI_API_KEY = open('api_key', 'r').read()
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -37,7 +39,8 @@ def chatgpt_do_msg(user_msg):
         chatgpt_ret = completion.choices[0].message.content
     else:
         chatgpt_ret = dummy_gpt_reply
-    print(f"gpt reply (allow_gpt={allow_gpt}): \n{chatgpt_ret}\n")
+    print(f"gpt reply (allow_gpt={allow_gpt}) (launch_api={launch_api}): \n{chatgpt_ret}\n")
+    
 
     actions_queue = deque(chatgpt_ret.split("\n"))
     while actions_queue:
@@ -46,8 +49,9 @@ def chatgpt_do_msg(user_msg):
         action = reply.split(":")[0]
         content = reply.split(": ")[-1]
 
-#        a = Action(action, content)
-#        a.doAction()
+        if launch_api:
+            a = Action(action, content)
+            a.doAction()
 
 ### Example
 msg = """【流行】
