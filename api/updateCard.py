@@ -12,15 +12,15 @@ prompt = '''
 '''
 try:
     from utils import api_hit
+    from getCardInfoByID import id_exist as id_exist
     from getCardInfoByID import run_api as getCardInfoByID
 except:
     from api.utils import api_hit
+    from api.getCardInfoByID import id_exist as id_exist
     from api.getCardInfoByID import run_api as getCardInfoByID
 
 def run_api(id: str, msg: str):
-    
-    card_info = getCardInfoByID(id)
-    if card_info is None:
+    if not id_exist(id):
         return None
 
     if type(msg) is str:
@@ -56,13 +56,14 @@ if __name__ == "__main__":
     testcase_id = "1"
     expect_output = "UpdateCard"
     print(f"Input (Card ID): {testcase_id}, msg: {expect_output}")
+    assert id_exist(testcase_id), "Error: Card ID not found"
 
-    print("Result (Before Update):")
+    print("Result (BEFORE Update):")
     card_info = getCardInfoByID(testcase_id)
     print("Card Info:", card_info)
 
     print(f"Testcase result: {run_testcase(id=testcase_id, expect_output=expect_output)}")
 
-    print("Result (After Update):")
+    print("Result (AFTER Update):")
     card_info = getCardInfoByID(testcase_id)
     print("Card Info:", card_info)

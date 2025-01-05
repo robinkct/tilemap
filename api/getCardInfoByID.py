@@ -17,17 +17,18 @@ except:
     from api.utils import api_hit
 
 import json
-def run_api(id: str):
+def run_api(id: str, verbose=True):
     action_with_id = "".join([api_name, "?ID={}".format(id)])
 
     ret = api_hit(action_with_id)
 
     if ret is None:
-        print(f"Error: {api_name}: return None (Maybe ID is not found?)")
+        if verbose:
+            print(f"Error: {api_name}: return None (Maybe ID is not found?)")
     return ret
 
-def id_exist(id: str):
-    card_info = run_api(id=id)
+def id_exist(id: str, verbose=False):
+    card_info = run_api(id=id, verbose=verbose)
     if card_info is None:
         return False
     else:
