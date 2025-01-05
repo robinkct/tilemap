@@ -35,23 +35,28 @@ def id_exist(id: str, verbose=False):
         return True
 
 def run_testcase(input=None, expect_output=None):
-    testcase_id = "1"
-    card_info = run_api(id=testcase_id)
+    if input is None:
+        testcase_id = "dummy0"
+    else:
+        testcase_id = input
+
+    if id_exist(testcase_id):
+        card_info = run_api(id=testcase_id)
 
     # card_info example
     # card_info = {
-    #     'ID': '1', 'X': 10.0, 'Y': 10.0, 'Title': None, 
-    #     'TextInfo': [{'Text': 'AddCard1', 'ID': 'XX'}]
+    #     'ID': 'dummy', 'X': 10.0, 'Y': 10.0, 'Title': None, 
+    #     'TextInfo': [{'Text': 'dummy0', 'ID': 'XX'}]
     # }
     if type(card_info) is dict and card_info["ID"]==testcase_id:
         return True
-    else:
-        return None
+    
+    return None
 
 if __name__ == "__main__":
     print(f"== {api_name} ==")
 
-    testcase_id = "1"
+    testcase_id = "dummy0"
     print("Input (Card ID):", testcase_id)
 
     print("Result:")

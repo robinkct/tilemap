@@ -27,7 +27,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(result, True)
 
     def test_updateCard(self):
-        result = updateCard.run_testcase(id="1", expect_output="UpdateCard")
+        result = updateCard.run_testcase(id="dummy0", expect_output="UpdateCard")
         self.assertEqual(result, True)
 
     def test_addConnection(self):
