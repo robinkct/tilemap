@@ -11,8 +11,10 @@ prompt = '''
 
 '''
 
-from api.utils import api_hit
-#from utils import api_hit
+try:
+    from utils import api_hit
+except:
+    from api.utils import api_hit
 
 import json
 def run_api(id: str):

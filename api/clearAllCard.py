@@ -10,7 +10,11 @@ CLEARALLCARD_PROMPT = '''
 -Expected Output-
 
 '''
-from api.utils import api_hit
+try:
+    from utils import api_hit
+except:
+    from api.utils import api_hit
+
 
 def run_api():
     api_hit("ClearAllCard", no_return=True)

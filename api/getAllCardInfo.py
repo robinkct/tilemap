@@ -11,8 +11,13 @@ prompt = '''
 
 '''
 
-from utils import api_hit
-from addCard import run_api as addCard
+try:
+    from utils import api_hit
+    from addCard import run_api as addCard
+except:
+    from api.utils import api_hit
+    from api.addCard import run_api as addCard
+
 
 def run_api():
     ret = api_hit("GetAllCardInfo")
@@ -32,7 +37,7 @@ def run_testcase(input=None, expect_output=None):
 if __name__ == "__main__":
     print(f"== {api_name}: {run_testcase()} ==")
     card_info_list = run_api()
-    
+
     print(card_info_list)
     for card in card_info_list:
         print(card)

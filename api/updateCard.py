@@ -10,9 +10,12 @@ prompt = '''
 -Expected Output-
 
 '''
-
-from api.utils import api_hit
-from api.getCardInfoByID import run_api as getCardInfoByID
+try:
+    from utils import api_hit
+    from getCardInfoByID import run_api as getCardInfoByID
+except:
+    from api.utils import api_hit
+    from api.getCardInfoByID import run_api as getCardInfoByID
 
 def run_api(id: str, msg: str):
     if type(msg) is str:

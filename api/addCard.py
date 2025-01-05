@@ -10,8 +10,11 @@ prompt = '''
 -Expected Output-
 
 '''
+try:
+    from utils import api_hit
+except:
+    from api.utils import api_hit
 
-from api.utils import api_hit
 
 def run_api(msg: str):
     if type(msg) is str:
