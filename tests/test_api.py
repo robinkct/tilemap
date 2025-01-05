@@ -1,4 +1,4 @@
-from api import addCard, clearAllCard, getAllCardInfo, getCardInfoByID
+from api import addCard, clearAllCard, getAllCardInfo, getCardInfoByID, updateCard
 import unittest
 
 class TestAPI(unittest.TestCase):
@@ -22,6 +22,10 @@ class TestAPI(unittest.TestCase):
 
     def test_getCardInfoByID(self):
         result = getCardInfoByID.run_testcase()
+        self.assertEqual(result, True)
+
+    def test_updateCard(self):
+        result = updateCard.run_testcase(id="1", expect_output="UpdateCard")
         self.assertEqual(result, True)
 
 if __name__ == '__main__':
