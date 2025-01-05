@@ -21,7 +21,7 @@ except:
 
 anchor_directions = ["top", "left", "right", "bottom"]
 
-def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor: str):
+def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor: str, description: str = None):
     if not id_exist(start_card_id):
         raise ValueError(f"Start card ID {start_card_id} not found")
     if not id_exist(end_card_id):
@@ -35,7 +35,8 @@ def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor:
         "StartAnchor":start_anchor,
         "EndCardID":end_card_id,
         "EndAnchor": end_anchor,
-        "ID": "link"+str(start_card_id)+str(end_card_id)
+        "ID": "link"+str(start_card_id)+"_"+str(end_card_id),
+        "Description": description if description is not None else ""
     }
     api_hit("AddCardConnection", msg, no_return=True)
 
@@ -61,7 +62,8 @@ def run_testcase(input=None, expect_output=None):
     start_anchor = "right"
     end_card_id = "dummy1"
     end_anchor = "left"
-    ret = run_api(start_card_id, start_anchor, end_card_id, end_anchor)
+    description = "connection between dummy0 and dummy1"
+    ret = run_api(start_card_id, start_anchor, end_card_id, end_anchor, description)
 
     if ret == expect_output:
         return True
