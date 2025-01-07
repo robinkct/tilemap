@@ -2,14 +2,31 @@ api_name = "ADDCONNECTION"
 description = f'{api_name}: Add a new connection between two cards.'
 prompt = '''
 -Goal-
+建立兩張卡片之間的連接關係。此 API 允許指定連接的起始點、終點及描述。
 
 -Step-
+1. 提供起始卡片 ID 和連接方向（top/bottom/left/right）
+2. 提供目標卡片 ID 和連接方向（top/bottom/left/right）
+3. 選擇性提供連接的描述文字
+4. API 會驗證卡片存在性和方向的合法性
+5. 建立連接並生成唯一的連接 ID
 
 -Example-
+# 建立從卡片 1 的下側到卡片 2 的上側的連接
+{"start_card_id": "1", "start_anchor": "bottom", "end_card_id": "2", "end_anchor": "top", "description": "針對連結的描述"}
+
+# 不帶描述的簡單連接
+{"start_card_id": "1", "start_anchor": "bottom", "end_card_id": "2", "end_anchor": "top"}
 
 -Expected Output-
-
+- 成功：無返回值，連接建立成功
+- 失敗：拋出 ValueError，可能的錯誤包括：
+  * "Start card ID {id} not found" - 起始卡片不存在
+  * "End card ID {id} not found" - 目標卡片不存在
+  * "Invalid anchor direction: {direction}" - 無效的連接方向
 '''
+#description = f'{api_name}: Add a new connection between two cards. {prompt}'
+
 try:
     from utils import api_hit
     from getCardInfoByID import id_exist as id_exist
