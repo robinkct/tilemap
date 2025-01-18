@@ -29,12 +29,12 @@ prompt = '''
 
 try:
     from utils import api_hit
-    from getCardInfoByID import id_exist as id_exist
-    from addCard import create_dummy_card as create_dummy_card # for testcase
+    from getCardInfoByID import id_exist
+    from dummy import create_dummy_card, create_dummy_connection, remove_dummy_connection, remove_dummy_card  # 改用 dummy.py 中的函數
 except:
     from api.utils import api_hit
-    from api.getCardInfoByID import id_exist as id_exist
-    from api.addCard import create_dummy_card as create_dummy_card # for testcase
+    from api.getCardInfoByID import id_exist
+    from api.dummy import create_dummy_card, create_dummy_connection, remove_dummy_connection, remove_dummy_card  # 改用 dummy.py 中的函數
 
 anchor_directions = ["top", "left", "right", "bottom"]
 
@@ -59,27 +59,65 @@ def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor:
 
 
 def run_testcase(input=None, expect_output=None):
+    """
+    測試添加連接功能
+    
+    參數:
+        input: 測試輸入，默認為 None（使用默認測試數據）
+        expect_output: 期望輸出，默認為 None
+    
+    返回:
+        bool: 測試是否成功
+    """
+    try:
+        if input is None:  # 使用默認測試數據
+            # 創建兩張測試卡片
+            card1 = create_dummy_card(
+                position=(0, 0),
+                text="Test Card 1",
+                tags=["test", "dummy"]
+            )
+            card2 = create_dummy_card(
+                position=(400, 0),
+                text="Test Card 2",
+                tags=["test", "dummy"]
+            )
+            
+            if card1 and card2:
+                # 創建連接
+                connection = create_dummy_connection(
+                    start_card_id=card1["ID"],
+                    end_card_id=card2["ID"],
+                    start_anchor="right",
+                    end_anchor="left",
+                    description="Test connection between cards"
+                )
+                
+                success = connection is not None
+                
+                # 清理測試數據
+                if connection:
+                    remove_dummy_connection(connection["ID"])
+                remove_dummy_card(card1["ID"])
+                remove_dummy_card(card2["ID"])
+                
+                return success
+        else:
+            # 使用提供的測試數據
+            ret = run_api(**input)
+            return ret == expect_output
 
-    # 1. create dummy cards
-    create_dummy_card(0)
-    create_dummy_card(1)
-
-    # 2. run api
-    start_card_id = "dummy0"
-    start_anchor = "right"
-    end_card_id = "dummy1"
-    end_anchor = "left"
-    description = "connection between dummy0 and dummy1"
-    ret = run_api(start_card_id, start_anchor, end_card_id, end_anchor, description)
-
-    if ret == expect_output:
-        return True
+        return False
+        
+    except Exception as e:
+        print(f"Error in test case: {str(e)}")
+        return False
 
 if __name__ == "__main__":
     print(f"== {api_name} ==")
-
-    # print("Input:", msg)
     
+    # 運行默認測試用例
+    print("Running default testcase...")
     print("Testcase Result:", run_testcase())
 
 
