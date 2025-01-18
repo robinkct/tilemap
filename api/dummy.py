@@ -1,8 +1,10 @@
-from utils import api_hit, get_hash_id, setup_logger
 from typing import Optional, List, Dict, Union
 
-# 創建logger實例
-logger = setup_logger(__name__)
+try:
+    from utils import api_hit, get_hash_id
+except:
+    from api.utils import api_hit, get_hash_id
+
 
 def create_dummy_card(
     position: tuple[int, int] = (0, 0),
@@ -48,12 +50,12 @@ def create_dummy_card(
             
         # 調用API創建卡片
         api_hit("AddCard", card_data, no_return=True)
-        logger.info(f"Created dummy card: {card_data}")
+        print(f"Created dummy card: {card_data}")
         
         return card_data
         
     except Exception as e:
-        logger.error(f"Error creating dummy card: {str(e)}")
+        print(f"Error creating dummy card: {str(e)}")
         return None
 
 def create_dummy_connection(
@@ -96,12 +98,12 @@ def create_dummy_connection(
         
         # 調用API創建連接
         api_hit("AddCardConnection", connection_data, no_return=True)
-        logger.info(f"Created dummy connection: {connection_data}")
+        print(f"Created dummy connection: {connection_data}")
         
         return connection_data
         
     except Exception as e:
-        logger.error(f"Error creating dummy connection: {str(e)}")
+        print(f"Error creating dummy connection: {str(e)}")
         return None
 
 def create_dummy_graph(num_cards: int = 3, layout: str = "horizontal") -> tuple[List[Dict], List[Dict]]:
@@ -151,7 +153,7 @@ def create_dummy_graph(num_cards: int = 3, layout: str = "horizontal") -> tuple[
         return cards, connections
         
     except Exception as e:
-        logger.error(f"Error creating dummy graph: {str(e)}")
+        print(f"Error creating dummy graph: {str(e)}")
         return [], []
 
 def remove_dummy_card(card_id: str) -> bool:
@@ -167,11 +169,11 @@ def remove_dummy_card(card_id: str) -> bool:
     try:
         # 調用 ClearCardByID API
         api_hit("ClearCardByID", {"ID": card_id}, no_return=True)
-        logger.info(f"Removed dummy card: {card_id}")
+        print(f"Removed dummy card: {card_id}")
         return True
         
     except Exception as e:
-        logger.error(f"Error removing dummy card {card_id}: {str(e)}")
+        print(f"Error removing dummy card {card_id}: {str(e)}")
         return False
 
 def remove_dummy_connection(connection_id: str) -> bool:
@@ -187,11 +189,11 @@ def remove_dummy_connection(connection_id: str) -> bool:
     try:
         # 調用 ClearCardConnectionByID API
         api_hit("ClearCardConnectionByID", {"ID": connection_id}, no_return=True)
-        logger.info(f"Removed dummy connection: {connection_id}")
+        print(f"Removed dummy connection: {connection_id}")
         return True
         
     except Exception as e:
-        logger.error(f"Error removing dummy connection {connection_id}: {str(e)}")
+        print(f"Error removing dummy connection {connection_id}: {str(e)}")
         return False
 
 def remove_dummy_graph(cards: List[Dict], connections: List[Dict]) -> tuple[bool, bool]:
@@ -211,20 +213,20 @@ def remove_dummy_graph(cards: List[Dict], connections: List[Dict]) -> tuple[bool
         for connection in connections:
             if not remove_dummy_connection(connection["ID"]):
                 connections_success = False
-                logger.warning(f"Failed to remove connection: {connection['ID']}")
+                print(f"Failed to remove connection: {connection['ID']}")
                 
         # 再刪除所有卡片
         cards_success = True
         for card in cards:
             if not remove_dummy_card(card["ID"]):
                 cards_success = False
-                logger.warning(f"Failed to remove card: {card['ID']}")
+                print(f"Failed to remove card: {card['ID']}")
                 
-        logger.info(f"Removed dummy graph: {len(cards)} cards and {len(connections)} connections")
+        print(f"Removed dummy graph: {len(cards)} cards and {len(connections)} connections")
         return cards_success, connections_success
         
     except Exception as e:
-        logger.error(f"Error removing dummy graph: {str(e)}")
+        print(f"Error removing dummy graph: {str(e)}")
         return False, False
 
 if __name__ == "__main__":

@@ -64,7 +64,7 @@ def load_functions_from_folder(folder_path: str=default_path) -> dict[str, calla
                         func = value
                 if api_name is not None and func is not None:
                     func_dict[api_name] = func
-                    logger.info(f"成功加載API函數: {api_name}")
+                    # logger.info(f"成功加載API函數: {api_name}")
                     
             except ImportError as e:
                 logger.error(f"無法導入模塊 {module_name}: {str(e)}")

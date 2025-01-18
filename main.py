@@ -3,7 +3,8 @@ import json
 from collections import deque
 from openai import OpenAI
 
-from utils import timer, load_description_from_folder, setup_logger
+from utils import timer, load_description_from_folder
+from logger import setup_logger
 from action import Action
 from api.ai_role import AI_ROLE_PROMPT
 

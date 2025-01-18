@@ -35,7 +35,7 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
     
     # 記錄請求信息
     logger.info(f"API Request - {method} {action_name}")
-    logger.info(f"URL: {action_url}")
+    #logger.info(f"URL: {action_url}")
     logger.info(f"Request Body: {msg}")
 
     if get_action(action_name): # GET
@@ -53,7 +53,7 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
 
     # 記錄響應狀態和結果
     logger.info(f"Response Status: {r.status_code}")
-    logger.info(f"Response Body: {ret[:200]}..." if len(ret) > 200 else f"Response Body: {ret}")
+#    logger.info(f"Response Body: {ret[:200]}..." if len(ret) > 200 else f"Response Body: {ret}")
 
     if r.status_code != 200:
         logger.error(f"Failed Status: {r.status_code} - {action_name}: {r.text}")
