@@ -49,7 +49,7 @@ def create_dummy_card(
             card_data["Tags"] = tags
             
         # 調用API創建卡片
-        api_hit("AddCard", card_data, no_return=True)
+        api_hit("AddCard", card_data, no_return=True, verbose=False)
         print(f"Created dummy card: {card_data}")
         
         return card_data
@@ -97,7 +97,7 @@ def create_dummy_connection(
         }
         
         # 調用API創建連接
-        api_hit("AddCardConnection", connection_data, no_return=True)
+        api_hit("AddCardConnection", connection_data, no_return=True, verbose=False)
         print(f"Created dummy connection: {connection_data}")
         
         return connection_data
@@ -168,7 +168,7 @@ def remove_dummy_card(card_id: str) -> bool:
     """
     try:
         # 調用 ClearCardByID API
-        api_hit("ClearCardByID", {"ID": card_id}, no_return=True)
+        api_hit("ClearCardByID", {"ID": card_id}, no_return=True, verbose=False)
         print(f"Removed dummy card: {card_id}")
         return True
         
@@ -188,7 +188,7 @@ def remove_dummy_connection(connection_id: str) -> bool:
     """
     try:
         # 調用 ClearCardConnectionByID API
-        api_hit("ClearCardConnectionByID", {"ID": connection_id}, no_return=True)
+        api_hit("ClearCardConnectionByID", {"ID": connection_id}, no_return=True, verbose=False)
         print(f"Removed dummy connection: {connection_id}")
         return True
         

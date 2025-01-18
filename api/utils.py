@@ -15,7 +15,10 @@ logger = setup_logger(__name__)
 
 url = "https://tilemapwebapi.azurewebsites.net/TextCardApi/{}"
 
-def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
+def api_hit(action_name: str, 
+            msg: dict = None, 
+            no_return: bool = False, 
+            verbose: bool = True) -> str:
     '''
     action_name: API name
     msg: for API contains input value
@@ -34,9 +37,10 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
     method = "GET" if get_action(action_name) else "POST"
     
     # 記錄請求信息
-    logger.info(f"API Request - {method} {action_name}")
-    #logger.info(f"URL: {action_url}")
-    logger.info(f"Request Body: {msg}")
+    if verbose:
+        logger.info(f"API Request - {method} {action_name}")
+        #logger.info(f"URL: {action_url}")
+        #logger.info(f"Request Body: {msg}")
 
     if get_action(action_name): # GET
         r = requests.get(
@@ -52,11 +56,13 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
     ret = r.text
 
     # 記錄響應狀態和結果
-    logger.info(f"Response Status: {r.status_code}")
+    if verbose:
+        logger.info(f"Response Status: {r.status_code}")
 #    logger.info(f"Response Body: {ret[:200]}..." if len(ret) > 200 else f"Response Body: {ret}")
 
     if r.status_code != 200:
-        logger.error(f"Failed Status: {r.status_code} - {action_name}: {r.text}")
+        if verbose:
+            logger.error(f"Failed Status: {r.status_code} - {action_name}: {r.text}")
         return None
     
     if no_return: # for API contains no return value

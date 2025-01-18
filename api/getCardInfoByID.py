@@ -20,7 +20,7 @@ import json
 def run_api(id: str, verbose=True):
     action_with_id = "".join([api_name, "?ID={}".format(id)])
 
-    ret = api_hit(action_with_id)
+    ret = api_hit(action_with_id, verbose=verbose)
 
     if ret is None:
         if verbose:
