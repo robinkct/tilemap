@@ -2,11 +2,6 @@ import requests
 import json
 url = "https://tilemapwebapi.azurewebsites.net/TextCardApi/{}"
 
-def get_action(action_name: str) -> bool:
-    if 'get' in action_name.lower():
-        return True
-    return False
-
 def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
     '''
     action_name: API name
@@ -17,9 +12,12 @@ def api_hit(action_name: str, msg: dict = None, no_return: bool = False) -> str:
       None: for API contains no return value
       json: for API contains return value
     '''
+    def get_action(action_name: str) -> bool:
+      if 'get' in action_name.lower():
+          return True
+      return False
 
     action_url = url.format(action_name)
-
     if get_action(action_name): # GET
         r = requests.get(
             url=action_url,
