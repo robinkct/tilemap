@@ -3,7 +3,7 @@ import json
 from collections import deque
 from openai import OpenAI
 
-from utils import timer, load_description_from_folder
+from utils import timer, load_description_from_folder, setup_logger
 from action import Action
 from api.ai_role import AI_ROLE_PROMPT
 
@@ -21,6 +21,9 @@ ADDCARD: 選擇問題的賭注高，可能花費數年時間，而解決問題�
 guide = AI_ROLE_PROMPT.format("\n".join(descriptions))
 print("guide:", guide)
 
+# 创建logger实例
+logger = setup_logger(__name__)
+
 @timer
 def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False):
     if allow_gpt:
@@ -34,7 +37,7 @@ def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False):
         chatgpt_ret = completion.choices[0].message.content
     else:
         chatgpt_ret = dummy_gpt_reply
-    print(f"gpt reply (allow_gpt={allow_gpt}) (launch_api={launch_api}): \n{chatgpt_ret}\n")
+    logger.info(f"gpt reply (allow_gpt={allow_gpt}) (launch_api={launch_api}): \n{chatgpt_ret}\n")
     
 
     actions_queue = deque(chatgpt_ret.split("\n"))
