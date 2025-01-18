@@ -48,7 +48,7 @@ def id_exist(id: str, verbose=False):
     connection_info = run_api(id=id, verbose=verbose)
     return connection_info is not None
 
-def run_testcase(input=None, expect_output=None):
+def run_testcase(input=None, expect_output=None, verbose=False):
     """
     測試獲取連接信息功能
     

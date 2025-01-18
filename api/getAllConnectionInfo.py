@@ -28,12 +28,13 @@ def run_api(verbose=True):
     return connection_info_list
 
 def run_testcase(input=None, expect_output=None, verbose=False):
-    ret = run_api(verbose=verbose)
-
-    if type(ret) is list:
+    # 获取API返回结果
+    card_info = run_api(verbose=verbose)
+    
+    # 检查返回值是否为列表类型
+    if isinstance(card_info, list):
         return True
-    else:
-        return None
+    return False
 
 if __name__ == "__main__":
     print(f"== {api_name} ==")
