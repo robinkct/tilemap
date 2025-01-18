@@ -19,15 +19,16 @@ except:
     from api.addCard import run_api as addCard
 
 
-def run_api():
-    connection_info_list = api_hit("GetAllCardConnectionInfo")
+def run_api(verbose=True):
+    connection_info_list = api_hit("GetAllCardConnectionInfo", verbose=verbose)
     connection_info_list = remove_duplicate(connection_info_list)
-    if connection_info_list == "[]":
+    
+    if connection_info_list == "[]" and verbose:
         print(f"{api_name}: No connection")
     return connection_info_list
 
-def run_testcase(input=None, expect_output=None):
-    ret = run_api()
+def run_testcase(input=None, expect_output=None, verbose=False):
+    ret = run_api(verbose=verbose)
 
     if type(ret) is list:
         return True

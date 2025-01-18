@@ -38,7 +38,7 @@ except:
 
 anchor_directions = ["top", "left", "right", "bottom"]
 
-def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor: str, description: str = None):
+def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor: str, description: str = None, verbose=False):
     if not id_exist(start_card_id):
         raise ValueError(f"Start card ID {start_card_id} not found")
     if not id_exist(end_card_id):
@@ -55,10 +55,10 @@ def run_api(start_card_id: str, start_anchor: str, end_card_id: str, end_anchor:
         "ID": "link"+str(start_card_id)+"_"+str(end_card_id),
         "Description": description if description is not None else ""
     }
-    api_hit("AddCardConnection", msg, no_return=True)
+    api_hit("AddCardConnection", msg, no_return=True, verbose=verbose)
 
 
-def run_testcase(input=None, expect_output=None):
+def run_testcase(input=None, expect_output=None, verbose=False):
     """
     測試添加連接功能
     

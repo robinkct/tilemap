@@ -43,7 +43,7 @@ def run_api(id: str, verbose=False):
     if getCardInfoByID(id, verbose=verbose):
         api_hit(api_name, msg, no_return=True, verbose=verbose)
 
-def run_testcase(input=None, expect_output=None):
+def run_testcase(input=None, expect_output=None, verbose=False):
     """
     測試刪除卡片功能
     

@@ -18,12 +18,12 @@ except:
     from api.getAllCardInfo import run_api as getAllCardInfo
 
 
-def run_api():
-    api_hit("ClearAllCard", no_return=True)
+def run_api(verbose=False):
+    api_hit("ClearAllCard", no_return=True, verbose=verbose)
 
-def run_testcase(input=None, expect_output=None):
-    ret = run_api()
-    card_list = getAllCardInfo()
+def run_testcase(input=None, expect_output=None, verbose=False):
+    ret = run_api(verbose=verbose)
+    card_list = getAllCardInfo(verbose=verbose)
     if len(card_list) == 0:
         return True
 

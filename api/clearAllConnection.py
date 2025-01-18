@@ -18,12 +18,12 @@ except:
     from api.getAllConnectionInfo import run_api as getAllConnectionInfo
 
 
-def run_api():
-    api_hit("ClearAllCardConnection", no_return=True)
+def run_api(verbose=False):
+    api_hit("ClearAllCardConnection", no_return=True, verbose=verbose)
 
-def run_testcase(input=None, expect_output=None):
-    ret = run_api()
-    connection_list = getAllConnectionInfo()
+def run_testcase(input=None, expect_output=None, verbose=False):
+    ret = run_api(verbose=verbose)
+    connection_list = getAllConnectionInfo(verbose=verbose)
     if len(connection_list) == 0:
         return True
 

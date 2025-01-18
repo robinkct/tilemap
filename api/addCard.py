@@ -47,7 +47,7 @@ except:
     from api.dummy import create_dummy_card, remove_dummy_card
 
 
-def run_api(msg: str):
+def run_api(msg: str, verbose=False):
     if type(msg) is str:
         msg = {
             "X": 10,
@@ -56,10 +56,10 @@ def run_api(msg: str):
                 "Text": msg,
             }
         }
-    api_hit("AddCard", msg, no_return=True)
+    api_hit("AddCard", msg, no_return=True, verbose=verbose)
 
 
-def run_testcase(input=None, expect_output=None):
+def run_testcase(input=None, expect_output=None, verbose=False):
     """
     測試添加卡片功能
     

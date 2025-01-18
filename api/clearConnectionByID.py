@@ -43,7 +43,7 @@ def run_api(id: str, verbose=False):
     if getConnectionByID(id, verbose=verbose):
         api_hit(api_name, msg, no_return=True, verbose=verbose)
 
-def run_testcase(input=None, expect_output=None):
+def run_testcase(input=None, expect_output=None, verbose=False):
     """
     測試刪除連接功能
     
@@ -78,9 +78,9 @@ def run_testcase(input=None, expect_output=None):
                 
                 if connection:
                     # 測試刪除
-                    run_api(connection["ID"], verbose=False)
+                    run_api(connection["ID"], verbose=verbose)
                     # 驗證連接是否已被刪除
-                    success = getConnectionByID(connection["ID"], verbose=False) is None
+                    success = getConnectionByID(connection["ID"], verbose=verbose) is None
                     
                     # 清理測試卡片
                     remove_dummy_card(card1["ID"])
@@ -89,8 +89,8 @@ def run_testcase(input=None, expect_output=None):
                     return success
         else:
             # 使用提供的測試數據
-            run_api(input, verbose=False)
-            return getConnectionByID(input, verbose=False) is None
+            run_api(input, verbose=verbose)
+            return getConnectionByID(input, verbose=verbose) is None
 
         return False
         

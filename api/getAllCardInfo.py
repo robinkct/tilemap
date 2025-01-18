@@ -19,15 +19,15 @@ except:
     from api.addCard import run_api as addCard
 
 
-def run_api():
-    card_info_list = api_hit("GetAllCardInfo")
+def run_api(verbose=True):
+    card_info_list = api_hit("GetAllCardInfo", verbose=verbose)
     card_info_list = remove_duplicate(card_info_list)
-    if card_info_list == "[]":
+    if card_info_list == "[]" and verbose:
         print(f"{api_name}: No card")
     return card_info_list
 
-def run_testcase(input=None, expect_output=None):
-    ret = run_api()
+def run_testcase(input=None, expect_output=None, verbose=False):
+    ret = run_api(verbose=verbose)
     #print("getAllCardInfo ret:", type(ret)) # ret is list
 
     if type(ret) is list:

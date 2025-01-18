@@ -25,7 +25,7 @@ except:
     from api.utils import api_hit
     from api.dummy import create_dummy_card, create_dummy_connection, remove_dummy_card
 
-def run_api(id: str, verbose=False):
+def run_api(id: str, verbose=True):
     """
     獲取指定ID的連接信息
     
