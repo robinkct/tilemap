@@ -4,6 +4,7 @@ from collections import deque
 from openai import OpenAI
 
 from utils import timer, load_description_from_folder
+#from utils import timer, load_description_from_folder, load_prompt_from_folder
 from logger import setup_logger
 from action import Action
 from api.ai_role import AI_ROLE_PROMPT
@@ -14,19 +15,23 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 description_dict = load_description_from_folder('api')
 descriptions = [description_dict[name] for name in description_dict]
 
+#prompt_dict = load_prompt_from_folder('api')
+#prompts = [prompt_dict[name] for name in prompt_dict]
+
 dummy_gpt_reply = '''ADDCARD: 人們在「解決問題」時展現的原創性遠超過在「選擇問題」時
 ADDCARD: 選擇問題時，即便是聰明的人也可能顯得保守
 ADDCARD: 解決時髦問題通常吸引不追隨潮流的人
 ADDCARD: 選擇問題的賭注高，可能花費數年時間，而解決問題可能只需幾天'''
 
-guide = AI_ROLE_PROMPT.format("\n".join(descriptions))
+api_list = "\n".join(descriptions)
+guide = AI_ROLE_PROMPT.format(api_list=api_list)
 print("guide:", guide)
 
 # 创建logger实例
 logger = setup_logger(__name__)
 
 @timer
-def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False):
+def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False, getinfo=False):
     if allow_gpt:
         completion = client.chat.completions.create(
             model="gpt-4-turbo",
@@ -50,7 +55,9 @@ def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False):
 
         if launch_api:
             a = Action(action, content)
-            a.doAction()
+            ret = a.doAction()
+            if ret:
+                return ret
 
 if __name__ == "__main__":
   msg = """【流行】
@@ -58,10 +65,18 @@ if __name__ == "__main__":
   人們選擇問題較保守，原因之一是選問題的賭注較大。一個問題可能花費你數年，而探索其解決方案可能只需要幾天。
   """
 
-  allow_gpt = False
+  allow_gpt = True
   launch_api = True
+  getinfo = True
 
-  chatgpt_do_msg(msg, allow_gpt, launch_api)
+  if getinfo:
+    ret = chatgpt_do_msg(msg, allow_gpt, launch_api, getinfo)
+
+  if ret:
+    msg_and_retinfo = msg + "\n" + str(ret)
+
+    print("【 Msg and GetAllCardInfo 】", msg_and_retinfo)
+    chatgpt_do_msg(msg_and_retinfo, allow_gpt, launch_api, False)
 
 
 # msg = "把卡片都刪除"
