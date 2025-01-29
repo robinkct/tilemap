@@ -65,16 +65,7 @@ def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False, getinfo=True):
             if ret:
                 return ret
 
-if __name__ == "__main__":
-  msg = """【流行】
-  人們在「解決問題」時展現的原創性遠超過在「選擇問題」時。就算是最聰明的人，選擇工作內容時也可能令人驚訝的保守。一些生活中不追隨潮流的人，會忍不住去解決時髦的問題。
-  人們選擇問題較保守，原因之一是選問題的賭注較大。一個問題可能花費你數年，而探索其解決方案可能只需要幾天。
-  """
-
-  allow_gpt = True
-  launch_api = True
-  getinfo = True
-
+def chatgpt_do_msg_with_getinfo(msg, allow_gpt, launch_api, getinfo):
   if getinfo:
     ret = chatgpt_do_msg(msg, allow_gpt, launch_api, getinfo)
 
@@ -86,6 +77,17 @@ if __name__ == "__main__":
     print("【 Msg and GetAllCardInfo 】", msg_and_retinfo)
     chatgpt_do_msg(msg_and_retinfo, allow_gpt, launch_api, False)
 
+if __name__ == "__main__":
+  msg = """【流行】
+  人們在「解決問題」時展現的原創性遠超過在「選擇問題」時。就算是最聰明的人，選擇工作內容時也可能令人驚訝的保守。一些生活中不追隨潮流的人，會忍不住去解決時髦的問題。
+  人們選擇問題較保守，原因之一是選問題的賭注較大。一個問題可能花費你數年，而探索其解決方案可能只需要幾天。
+  """
+
+  allow_gpt = True
+  launch_api = True
+  getinfo = True
+
+  chatgpt_do_msg_with_getinfo(msg, allow_gpt, launch_api, getinfo)
 
 # msg = "把卡片都刪除"
 # chatgpt_do_msg(msg)
