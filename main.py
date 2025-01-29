@@ -23,15 +23,21 @@ ADDCARD: 選擇問題時，即便是聰明的人也可能顯得保守
 ADDCARD: 解決時髦問題通常吸引不追隨潮流的人
 ADDCARD: 選擇問題的賭注高，可能花費數年時間，而解決問題可能只需幾天'''
 
+getinfo_prompt = "如果需要先取得資料，請先執行 getAllCardInfo 取得資料，再執行其他動作。"
+getinfo_example = "# 範例 0 \n## 敘述\n敘述:\'幫我合併卡片中所有「流行」的卡片。\'\n## 輸出  \nGetAllCardInfo: "
 api_list = "\n".join(descriptions)
-guide = AI_ROLE_PROMPT.format(api_list=api_list)
-print("guide:", guide)
 
 # 创建logger实例
 logger = setup_logger(__name__)
 
 @timer
-def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False, getinfo=False):
+def chatgpt_do_msg(user_msg, allow_gpt=False, launch_api=False, getinfo=True):
+    if getinfo: 
+        guide = AI_ROLE_PROMPT.format(api_list=api_list, getinfo_prompt=getinfo_prompt, getinfo_example=getinfo_example)
+    else:
+        guide = AI_ROLE_PROMPT.format(api_list=api_list, getinfo_prompt="", getinfo_example="")
+    print("guide:", guide)
+
     if allow_gpt:
         completion = client.chat.completions.create(
             model="gpt-4-turbo",
@@ -71,6 +77,8 @@ if __name__ == "__main__":
 
   if getinfo:
     ret = chatgpt_do_msg(msg, allow_gpt, launch_api, getinfo)
+
+  print("ret msg:", ret)
 
   if ret:
     msg_and_retinfo = msg + "\n" + str(ret)

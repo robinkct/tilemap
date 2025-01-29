@@ -11,7 +11,7 @@ class Action:
 
     def doAction(self):
         if self.action in self.func_dict:
-            self.func_dict[self.action](self.content)
+            return self.func_dict[self.action](self.content)
         else:
             print(f"Unknown action: {self.action}")
 
